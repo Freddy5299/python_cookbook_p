@@ -1,0 +1,5 @@
+f = open('sample.txt', 'rt', encoding='ascii', errors='replace')
+content = f.read()
+print(content)
+g = open('sample.txt', 'rt', encoding='ascii', errors='ignore')
+print(g.read())
