@@ -83,11 +83,13 @@ def title_text_parse(style_head, text, title_number):
                        'Heading 9': file_style('### ', '\n'), 'List Paragraph': file_style('### ', '\n'),
                        'text_code': file_style("```verilog", '```')}
     string_title_number = ''
-    for _number in range(len(title_number) - 1):
+    tmp = []
+    if title_number[0] == 0:
+        return text
+    for _number in title_number:
         if _number != 0:
-            string_title_number += f'{_number}.'
-    if title_number[-1] != 0:
-        string_title_number += f'{title_number[-1]}'
+            tmp.append(_number)
+    string_title_number = '.'.join(map(str, tmp))
     text_result = file_style_list[style_head].start_switch + string_title_number + " " + text + file_style_list[
         style_head].end_switch
     return text_result
@@ -104,7 +106,7 @@ def add_file_list(paragraphs, style_head_list, style_font_all_compare_list):
                 title_number[0] = 1
                 title1 = title_text_parse(paragraph.style.name, paragraph.text, title_number)
                 file_content_list.append(title1)
-                
+
             elif style_font_all_compare_list[index]['font'] == paragraph.style.font.name and \
                     style_font_all_compare_list[index]['size'] == paragraph.style.font.size:
                 if index == 0:
